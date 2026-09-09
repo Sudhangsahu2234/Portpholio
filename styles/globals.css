@@ -1,0 +1,747 @@
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;800&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;600&display=swap');
+
+:root {
+  --color-ink: #0b0e14;
+  --color-ink-soft: #12161f;
+  --color-paper: #e8e1d3;
+  --color-lacquer: #a6222b;
+  --color-lacquer-bright: #d1343f;
+  --color-gold: #d4af37;
+  --color-gold-dim: #8a7124;
+  --color-steel: #8b93a1;
+
+  --font-display: 'Shippori Mincho B1', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'Manrope', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+}
+
+/* Vignette — sits above the 3D layer, below the copy, so the stage falls away
+   at the edges instead of ending in flat black. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(125% 90% at 50% 42%, transparent 30%, rgba(4, 6, 10, 0.62) 100%);
+}
+
+/* Film grain — the one texture on an otherwise flat dark page. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+.canvas-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+main {
+  position: relative;
+  z-index: 2;
+}
+
+.section {
+  position: relative;
+  overflow: hidden; /* clips the oversized section mark */
+  min-height: 100vh;
+  padding: 8rem 6vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Oversized kanji set into each section's negative space. z-index:-1 keeps it
+   behind the copy but still inside <main>'s stacking context, so it stays
+   above the 3D canvas rather than disappearing behind it. */
+.section-mark {
+  position: absolute;
+  right: -0.06em;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -1;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(11rem, 29vw, 29rem);
+  line-height: 0.78;
+  color: var(--color-paper);
+  opacity: 0.038;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  position: relative;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 68px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-lacquer), var(--color-gold));
+}
+
+/* Shared click-surface plumbing: the ink ripple is absolutely positioned
+   inside its host, so hosts must clip and establish a containing block. */
+.has-ink {
+  position: relative;
+  overflow: hidden;
+}
+.ink-ripple {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.blade-cut {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  box-shadow: 0 0 12px var(--color-gold);
+}
+
+/* Hero */
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  color: var(--color-gold);
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  max-width: 14ch;
+  margin: 0 0 1rem;
+}
+.hero-subhead {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 2.2vw, 1.75rem);
+  color: var(--color-lacquer-bright);
+  margin: 0 0 1rem;
+}
+.hero-lede {
+  max-width: 46ch;
+  color: var(--color-paper);
+  margin: 0 0 1.5rem;
+  line-height: 1.6;
+}
+.hero-meta {
+  font-family: var(--font-mono);
+  color: var(--color-steel);
+  font-size: 0.8rem;
+  line-height: 1.8;
+  margin: 0 0 2.5rem;
+  max-width: 60ch;
+}
+.hero-cta {
+  font-family: var(--font-mono);
+  background: rgba(18, 22, 31, 0.5);
+  border: 1px solid var(--color-steel);
+  color: var(--color-paper);
+  padding: 0.75rem 1.5rem;
+  width: fit-content;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.hero-cta:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.07);
+}
+
+/* Blade scroll-progress — the signature element */
+.blade-progress {
+  position: fixed;
+  right: 2.5vw;
+  top: 12vh;
+  bottom: 12vh;
+  width: 2px;
+  z-index: 3;
+}
+.blade-track {
+  position: absolute;
+  inset: 0;
+  background: var(--color-steel);
+  opacity: 0.25;
+}
+.blade-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--color-gold);
+  box-shadow: 0 0 8px var(--color-gold);
+  transition: height 0.05s linear;
+}
+
+/* About */
+.about-copy {
+  max-width: 46ch;
+}
+.about-copy p {
+  line-height: 1.7;
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  color: var(--color-lacquer-bright);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+}
+.edu-list {
+  list-style: none;
+  padding: 0;
+  margin: 2.5rem 0 0;
+  border-top: 1px solid rgba(139, 147, 161, 0.3);
+}
+.edu-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(139, 147, 161, 0.15);
+}
+.edu-item strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+.edu-item span {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-steel);
+}
+
+/* Projects */
+.project-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+/* One gold cut across the grid on first reveal. GSAP owns `transform` here
+   (rotation + scaleX), so CSS sets no transform of its own. */
+.grid-slash {
+  position: absolute;
+  left: -6%;
+  top: 46%;
+  width: 112%;
+  height: 1px;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  box-shadow: 0 0 20px var(--color-gold);
+}
+
+.project-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  border: 1px solid rgba(139, 147, 161, 0.35);
+  background: rgba(18, 22, 31, 0.66);
+  backdrop-filter: blur(6px);
+  padding: 1.75rem;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+.project-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-gold);
+  background: rgba(23, 28, 39, 0.8);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.14);
+}
+.project-card h3 {
+  font-family: var(--font-display);
+  margin: 0 0 0.5rem;
+}
+.project-card p {
+  color: var(--color-steel);
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.project-status {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold-dim);
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 0.9rem;
+}
+.project-detail {
+  height: 0;
+  overflow: hidden;
+}
+.project-stack {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-lacquer-bright) !important;
+  padding-top: 1rem;
+}
+.project-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--color-steel);
+  margin-top: 1.1rem;
+  transition: color 0.18s ease;
+}
+.project-card:hover .project-toggle {
+  color: var(--color-gold);
+}
+.project-toggle .mark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.05rem;
+  height: 1.05rem;
+  border: 1px solid currentColor;
+  line-height: 1;
+  font-size: 0.75rem;
+}
+
+/* Experience */
+.timeline {
+  position: relative;
+  padding-left: 2.5rem;
+}
+.timeline-spine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(var(--color-lacquer), var(--color-gold));
+}
+.timeline-entry {
+  position: relative;
+  margin-bottom: 3rem;
+}
+.timeline-entry::before {
+  content: '';
+  position: absolute;
+  left: -2.5rem;
+  top: 0.45rem;
+  width: 9px;
+  height: 9px;
+  transform: translateX(-3.5px) rotate(45deg);
+  background: var(--color-gold);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+}
+.timeline-year {
+  font-family: var(--font-mono);
+  color: var(--color-gold);
+  font-size: 0.85rem;
+}
+.timeline-entry h3 {
+  font-family: var(--font-display);
+  margin: 0.4rem 0;
+  font-size: 1.3rem;
+}
+.timeline-entry p {
+  color: var(--color-steel);
+  margin: 0;
+  font-size: 0.9rem;
+}
+.timeline-loc {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-steel);
+  margin-bottom: 0.6rem !important;
+}
+.timeline-desc {
+  max-width: 60ch;
+  line-height: 1.6;
+  margin-bottom: 0.75rem !important;
+}
+.timeline-stack {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-lacquer-bright) !important;
+}
+
+/* Skills */
+.skill-rack {
+  margin-bottom: 2rem;
+}
+.skill-rack-name {
+  font-family: var(--font-mono);
+  color: var(--color-lacquer-bright);
+  margin-bottom: 0.75rem;
+}
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.skill-tag {
+  border: 1px solid rgba(139, 147, 161, 0.5);
+  background: rgba(18, 22, 31, 0.5);
+  color: var(--color-paper);
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+.skill-tag:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+/* Clicking a tag pins it — a lightweight way to mark what you care about. */
+.skill-tag[aria-pressed='true'] {
+  border-color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.14);
+  color: var(--color-gold);
+}
+
+/* Contact */
+.contact-lede {
+  max-width: 52ch;
+  line-height: 1.7;
+  margin: -1.5rem 0 2.5rem;
+  color: var(--color-steel);
+}
+.hanko-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.5rem;
+  max-width: 600px;
+}
+/* GSAP owns `transform` on these (hankoPress), so hover changes colour only —
+   a CSS transform here would fight the press animation. */
+.hanko {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--color-lacquer);
+  background: rgba(18, 22, 31, 0.55);
+  padding: 1.5rem 1rem;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+.hanko:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.08);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 5rem 7vw;
+  }
+  .section-mark {
+    font-size: 46vw;
+    opacity: 0.03;
+  }
+  .blade-progress {
+    right: 1.5vw;
+    top: 15vh;
+    bottom: 15vh;
+  }
+  .timeline {
+    padding-left: 1.5rem;
+  }
+  .timeline-entry::before {
+    left: -1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .blade-fill,
+  .hanko,
+  .project-card,
+  .skill-tag {
+    transition: none;
+  }
+  .project-card:hover {
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------- side nav -- */
+/* Scroll-spy rail. Hidden below 1024px: on a single-page scroll site the
+   phone gesture *is* the navigation, and a fixed rail would eat gutter. */
+.side-nav {
+  position: fixed;
+  left: 1.4vw;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  display: none;
+}
+.side-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+.side-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--color-steel);
+  transition: color 0.2s ease;
+}
+.side-nav-kanji {
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border: 1px solid transparent;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  line-height: 1;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.side-nav-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.side-nav-label i {
+  font-style: normal;
+  margin-right: 0.45rem;
+  color: var(--color-gold-dim);
+}
+.side-nav-link:hover {
+  color: var(--color-paper);
+}
+.side-nav-link:hover .side-nav-label,
+.side-nav-link:focus-visible .side-nav-label,
+.side-nav-link[aria-current='true'] .side-nav-label {
+  opacity: 1;
+  transform: none;
+}
+.side-nav-link[aria-current='true'] {
+  color: var(--color-gold);
+}
+.side-nav-link[aria-current='true'] .side-nav-kanji {
+  border-color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+/* Tategaki wordmark — vertical-rl is the traditional Japanese setting;
+   text-orientation:upright keeps the katakana from rotating on their side. */
+.site-mark {
+  position: fixed;
+  left: 1.4vw;
+  top: 2.2rem;
+  z-index: 4;
+  display: none;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  letter-spacing: 0.3em;
+  color: var(--color-steel);
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* --------------------------------------------------------- stage loader -- */
+.stage-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.4rem;
+  background: var(--color-ink);
+  transition: opacity 0.5s ease;
+}
+.stage-loader.is-done {
+  opacity: 0;
+  pointer-events: none;
+}
+.stage-loader-kanji {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 8rem);
+  line-height: 1;
+  color: var(--color-paper);
+  opacity: 0.13;
+}
+.stage-loader-bar {
+  display: block;
+  width: min(52vw, 320px);
+  height: 1px;
+  background: rgba(139, 147, 161, 0.28);
+}
+.stage-loader-bar i {
+  display: block;
+  height: 100%;
+  background: var(--color-gold);
+  box-shadow: 0 0 10px var(--color-gold);
+  transition: width 0.25s ease;
+}
+.stage-loader-meta {
+  display: flex;
+  justify-content: space-between;
+  width: min(52vw, 320px);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--color-steel);
+}
+.stage-loader-meta em {
+  font-style: normal;
+}
+.stage-loader-meta b {
+  font-weight: 400;
+  color: var(--color-gold);
+}
+
+/* --------------------------------------------------------- hero actions -- */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+/* .hero-cta is used on both <button> and <a>, so it needs an explicit box. */
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+}
+.hero-cta-primary {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+.hero-cta-primary:hover {
+  background: rgba(212, 175, 55, 0.14);
+}
+
+/* -------------------------------------------------------------- footer --- */
+.site-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 4rem 6vw 3rem;
+  border-top: 1px solid rgba(139, 147, 161, 0.2);
+  background: var(--color-ink);
+}
+.footer-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  margin: 0 0 0.35rem;
+}
+.footer-role,
+.footer-built,
+.footer-copy {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--color-steel);
+}
+.footer-end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.55rem;
+}
+.footer-top {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--color-steel);
+  transition: color 0.2s ease;
+}
+.footer-top:hover {
+  color: var(--color-gold);
+}
+
+/* The rail and wordmark only appear once there's gutter to hold them. */
+@media (min-width: 1024px) {
+  .side-nav,
+  .site-mark {
+    display: block;
+  }
+  .section,
+  .site-footer {
+    padding-left: calc(6vw + 4.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-loader,
+  .stage-loader-bar i,
+  .side-nav-link,
+  .side-nav-label,
+  .footer-top {
+    transition: none;
+  }
+}

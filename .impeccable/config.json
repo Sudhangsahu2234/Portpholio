@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "styles/globals.css"
+        ],
+        "createdAt": "2026-08-26T17:04:37.842Z",
+        "reason": "Claude's call, not user-confirmed: L201 is the starter kit's BladeProgress signature element, which the brief explicitly said to preserve as-is. The fill is a position:absolute child of a position:fixed 2px bar with no in-flow siblings, so height changes cannot reflow document content. The transform:scaleY alternative would vertically squash its box-shadow glow through the scroll, altering the signature element's look."
+      }
+    ]
+  }
+}
