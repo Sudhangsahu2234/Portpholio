@@ -1,0 +1,313 @@
+{
+  "meta": {
+    "extractedFrom": [
+      "resume.pdf",
+      "linkedin.pdf"
+    ],
+    "rule": "Every fact below appears verbatim or near-verbatim in one of the two source documents. Bullets are condensed for impact; no metric, employer, date, or skill has been invented.",
+    "openQuestions": [
+      "targetRole is DERIVED from the resume summary and LinkedIn headline; not stated verbatim in either document."
+    ],
+    "resolved": [
+      "GitHub account supplied and verified: Sudhangsahu2234 (13 public repos, created 2022).",
+      "Gazpro location: Berbera, Somaliland & Remote, India (resume) confirmed correct.",
+      "Love In Property dates: August 2024 - January 2025 (resume) confirmed correct."
+    ]
+  },
+  "name": "Sudhang Sahu",
+  "targetRole": "Software & Data Engineer",
+  "targetRoleSource": "derived",
+  "headline": "CSE '26 · Data Science · Web Development",
+  "headlineSource": "linkedin.pdf headline, verbatim: CSE 26' || DATA SCIENCE || WEB DEVELOPMENT",
+  "contact": {
+    "email": "sudhang.sahu@gmail.com",
+    "phone": "+91 7869607418",
+    "location": "Raipur, Chhattisgarh, India",
+    "linkedin": "https://www.linkedin.com/in/sudhang-sahu-633657288",
+    "github": "https://github.com/Sudhangsahu2234",
+    "githubUsername": "Sudhangsahu2234"
+  },
+  "summary": "Final-year Computer Science and Engineering student with hands-on experience in software engineering and data engineering, building production data pipelines, backend APIs, and web applications. Proficient in Python, SQL, and modern web technologies.",
+  "experience": [
+    {
+      "id": "iit-mandi",
+      "title": "Robotics Research Intern",
+      "company": "IIT Mandi",
+      "location": "Mandi, Himachal Pradesh",
+      "start": "2026-06",
+      "end": "2026-07",
+      "dates": "June 2026 — July 2026",
+      "type": "research",
+      "source": "resume.pdf",
+      "bullets": [
+        "Prototyped an autonomous Smart Cleaning Robot using an ESP32 microcontroller as the main compute unit, HC-SR04 ultrasonic sensors for obstacle detection, and a TB6612FNG motor driver controlling differential-drive DC motors for real-time navigation.",
+        "Developed a Gesture Control Robot using an MPU6050 accelerometer-gyroscope module to capture hand motion, transmitting control signals wirelessly via an nRF24L01 RF module to an Arduino Uno receiver driving the robot through an L298N motor driver."
+      ],
+      "tech": [
+        "ESP32",
+        "Arduino Uno",
+        "HC-SR04",
+        "TB6612FNG",
+        "MPU6050",
+        "nRF24L01",
+        "L298N"
+      ]
+    },
+    {
+      "id": "gazpro",
+      "title": "Software Automation Engineer",
+      "company": "Gazpro FZC",
+      "location": "Berbera, Somaliland & Remote, India",
+      "start": "2025-10",
+      "end": "2026-01",
+      "dates": "October 2025 — January 2026",
+      "type": "industry",
+      "source": "resume.pdf",
+      "bullets": [
+        "Built and orchestrated data pipelines using Python and Apache Airflow to automate ingestion and processing of live industrial data from Oil & Gas terminal operations.",
+        "Integrated MQTT and SCADA systems for real-time data acquisition, storing time-series data in InfluxDB and visualizing operational metrics through Grafana dashboards.",
+        "Containerized services with Docker and exposed automation workflows via REST APIs, collaborating cross-functionally to translate operational requirements into production-ready solutions."
+      ],
+      "tech": [
+        "Python",
+        "Apache Airflow",
+        "MQTT",
+        "SCADA",
+        "InfluxDB",
+        "Grafana",
+        "Docker",
+        "REST APIs"
+      ],
+      "resolved": "Confirmed by Sudhang: resume value is correct."
+    },
+    {
+      "id": "love-in-property",
+      "title": "Front-End Developer",
+      "company": "Love In Property",
+      "location": "Raipur, Chhattisgarh",
+      "start": "2024-08",
+      "end": "2025-01",
+      "dates": "August 2024 — January 2025",
+      "type": "industry",
+      "source": "resume.pdf",
+      "bullets": [
+        "Developed responsive, production interfaces using React.js with a component-based architecture, improving page load performance through lazy loading and code splitting.",
+        "Integrated RESTful APIs and implemented state management strategies to enhance application responsiveness.",
+        "Owned the front-end design-to-development pipeline for a property listings website by designing UI/UX in Figma and implementing responsive, interactive pages, improving usability across mobile and desktop."
+      ],
+      "tech": [
+        "React.js",
+        "JavaScript",
+        "REST APIs",
+        "Figma"
+      ],
+      "resolved": "Confirmed by Sudhang: resume value is correct."
+    },
+    {
+      "id": "sac-ssipmt",
+      "title": "Event Coordinator, AI & Data Science Club / CSA Member",
+      "company": "Student Activity Centre, SSIPMT Raipur",
+      "location": "Raipur, Chhattisgarh",
+      "start": "2024-09",
+      "end": "2025-05",
+      "dates": "September 2024 — May 2025",
+      "type": "leadership",
+      "source": "linkedin.pdf and resume.pdf (Awards & Honors) (CSA membership merged in from linkedin.pdf - it duplicated org and dates with no distinct content)",
+      "bullets": [
+        "Led technical workshops and inter-college competitions for SSIPMT's Data Science department.",
+        "Member of the Computer Science Association (CSA)."
+      ],
+      "tech": []
+    },
+    {
+      "id": "thought-applied",
+      "title": "Frontend Web Developer",
+      "company": "Thought Applied Creations",
+      "location": "Raipur, Chhattisgarh",
+      "start": "2024-07",
+      "end": "2024-08",
+      "dates": "July 2024 — August 2024",
+      "type": "training",
+      "source": "linkedin.pdf",
+      "bullets": [
+        "Completed front-end development training."
+      ],
+      "tech": []
+    }
+  ],
+  "education": [
+    {
+      "id": "ssipmt",
+      "degree": "B.Tech, Computer Science and Engineering",
+      "specialization": "Data Science Specialization",
+      "institution": "Shri Shankaracharya Institute of Professional Management and Technology (SSIPMT)",
+      "location": "Raipur, Chhattisgarh",
+      "dates": "2022 — 2026",
+      "source": "resume.pdf lists July 2022; linkedin.pdf lists January 2022 - June 2026",
+      "honors": []
+    },
+    {
+      "id": "iitm",
+      "degree": "B.S., Data Science and Applications",
+      "specialization": null,
+      "institution": "Indian Institute of Technology Madras (Online)",
+      "location": "Chennai, India",
+      "dates": "Expected December 2026",
+      "source": "resume.pdf",
+      "honors": [
+        "Foundation Level completed"
+      ]
+    },
+    {
+      "id": "holy-cross",
+      "degree": "Senior Secondary",
+      "specialization": null,
+      "institution": "Holy Cross Senior Secondary School",
+      "location": null,
+      "dates": "September 2009 — September 2022",
+      "source": "linkedin.pdf",
+      "honors": []
+    }
+  ],
+  "skills": {
+    "Data & Analytics": [
+      "Python",
+      "SQL (PostgreSQL)",
+      "Power BI",
+      "Statistical Analysis",
+      "NLP (spaCy)",
+      "Embeddings & Vector Search",
+      "Retrieval-Augmented Generation (RAG)"
+    ],
+    "Software Engineering": [
+      "JavaScript (ES6+)",
+      "TypeScript",
+      "React.js",
+      "Next.js",
+      "REST APIs",
+      "Docker",
+      "Git"
+    ],
+    "Robotics & Embedded Systems": [
+      "Arduino",
+      "ESP32",
+      "Sensor Integration",
+      "Motor Control",
+      "Embedded C"
+    ],
+    "Tools & Platforms": [
+      "LLM APIs",
+      "Tailwind CSS",
+      "Claude AI"
+    ]
+  },
+  "skillsSource": "resume.pdf SKILLS section, verbatim groupings. linkedin.pdf Top Skills lists SQL, Data Loading, Statistical Data Analysis, all already covered above.",
+  "projects": [
+    {
+      "id": "medical-report-analyser",
+      "name": "Medical Report Analyser",
+      "description": "Full-stack web application that uses LLM APIs to extract, structure, and interpret clinical data from medical reports.",
+      "detail": "Resolved production deployment challenges including static file routing, environment variables, and session management.",
+      "tech": [
+        "LLM APIs",
+        "Vercel"
+      ],
+      "deployed": "Vercel",
+      "link": "https://ai-medical-report-analyser.vercel.app",
+      "source": "resume.pdf",
+      "repo": "https://github.com/Sudhangsahu2234/AI-Medical_Report_Analyser",
+      "linkNote": "Production alias used instead of the deployment-hash preview URL supplied in chat; both resolve, this one is stable and cleaner."
+    },
+    {
+      "id": "job-recommender",
+      "name": "AI-Powered Job Recommender System",
+      "description": "Job recommendation engine using NLP (spaCy) and regex to extract skills and experience from resumes, matching candidates to relevant listings via the JSearch API.",
+      "detail": null,
+      "tech": [
+        "spaCy",
+        "NLP",
+        "Regex",
+        "JSearch API"
+      ],
+      "deployed": null,
+      "link": null,
+      "source": "resume.pdf",
+      "repo": "https://github.com/Sudhangsahu2234/Job_recommender"
+    },
+    {
+      "id": "rag-teaching-assistant",
+      "name": "RAG-Based AI Teaching Assistant",
+      "description": "End-to-end pipeline converting educational videos into structured, queryable knowledge: video to audio to transcription to vector embeddings.",
+      "detail": null,
+      "tech": [
+        "RAG",
+        "Vector Embeddings",
+        "Transcription"
+      ],
+      "deployed": null,
+      "link": null,
+      "source": "resume.pdf",
+      "repo": "https://github.com/Sudhangsahu2234/AI_teaching_assistant"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Foundation Level — B.S. in Data Science",
+      "issuer": "Indian Institute of Technology Madras",
+      "detail": "Completed the Foundation Level of IIT Madras's B.S. in Data Science, covering statistical and programming fundamentals.",
+      "date": null,
+      "source": "resume.pdf"
+    }
+  ],
+  "honors": [
+    {
+      "name": "Competitive Programming",
+      "detail": "Solved 300+ Data Structures & Algorithms problems across LeetCode and GeeksforGeeks.",
+      "source": "resume.pdf"
+    },
+    {
+      "name": "Event Coordinator",
+      "detail": "Led technical workshops and inter-college competitions at SSIPMT's Data Science department.",
+      "source": "resume.pdf"
+    }
+  ],
+  "githubProjects": [
+    {
+      "name": "My Next Stop",
+      "repo": "https://github.com/Sudhangsahu2234/My_next_step",
+      "link": "https://my-next-step-sage.vercel.app",
+      "language": "TypeScript"
+    },
+    {
+      "name": "Chhattisgarh Matsya Exports",
+      "repo": "https://github.com/Sudhangsahu2234/Chattisgarh_Matsya_Exports",
+      "link": "https://chattisgarh-matsya-exports.vercel.app",
+      "language": "TypeScript"
+    },
+    {
+      "name": "Stock Gas",
+      "repo": "https://github.com/Sudhangsahu2234/Stock_Gas",
+      "link": "https://stock-gas.vercel.app",
+      "language": "JavaScript"
+    },
+    {
+      "name": "Route Optimizer Web",
+      "repo": "https://github.com/Sudhangsahu2234/Route_Optimizer_Web",
+      "link": null,
+      "language": "TypeScript"
+    },
+    {
+      "name": "Video Conference App",
+      "repo": "https://github.com/Sudhangsahu2234/Video_Conference_App",
+      "link": null,
+      "language": "TypeScript"
+    },
+    {
+      "name": "Email Fraud Detection",
+      "repo": "https://github.com/Sudhangsahu2234/Email-Fraud-Detection",
+      "link": null,
+      "language": "Jupyter Notebook"
+    }
+  ],
+  "githubProjectsSource": "Live github.com/Sudhangsahu2234 repo list, not the resume. Every URL verified HTTP 200. Shown separately from resume projects."
+}

@@ -1,0 +1,235 @@
+.about,
+.contact {
+  --serif-face: var(--serif, "Baskerville", "Times New Roman", Georgia, serif);
+  --sans-face: var(--sans, Geist, "Helvetica Neue", Arial, sans-serif);
+  --mono-face: var(--mono, "Courier New", monospace);
+  font-family: var(--sans-face);
+  scroll-margin-top: var(--header-height, 72px);
+}
+.inner {
+  width: 100%;
+  max-width: 1500px;
+  margin-inline: auto;
+  padding-inline: var(--gutter, clamp(22px, 5vw, 82px));
+}
+.about {
+  --text: #272c34;
+  --secondary: #56574f;
+  --rule: #c8bda6;
+  --bronze: #73552a;
+  background:
+    radial-gradient(ellipse at 3% 48%, #ebdec844, transparent 58%),
+    linear-gradient(100deg, #f3ebdd, #fbf6e9 45%, #f3eddd);
+  color: var(--text);
+  padding-block: clamp(74px, 8.6vw, 143px);
+}
+.aboutGrid {
+  display: grid;
+  grid-template-columns: minmax(0, .91fr) minmax(0, 1.09fr);
+  align-items: start;
+  gap: clamp(48px, 8vw, 140px);
+}
+.kicker,
+.filter label {
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 620;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+.kicker { display: flex; align-items: center; gap: 12px; margin: 0 0 24px; color: var(--bronze); }
+.kicker::before { content: ""; width: 32px; border-top: 1px solid currentColor; }
+.bio h2,
+.contact h2 {
+  margin: 0;
+  font: 400 clamp(60px, 6.65vw, 104px)/.94 var(--serif-face);
+  letter-spacing: -.067em;
+}
+.bio h2 em { display: block; font-weight: 400; color: #5b503b; }
+.bioCopy {
+  margin: 24px 0 0;
+  max-width: 39ch;
+  font-size: clamp(15px, 1.28vw, 19px);
+  line-height: 1.65;
+  letter-spacing: -.019em;
+  color: var(--secondary);
+}
+.resumeLink,
+.email,
+.socialLinks a,
+.footer a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+.resumeLink {
+  margin: 20px 0 0;
+  min-height: 42px;
+  gap: 20px;
+  color: var(--text);
+  border-bottom: 1px solid #8c7755;
+  font: 600 14px/1.3 var(--sans-face);
+}
+.resumeLink span { font-size: 18px; font-weight: 400; color: var(--bronze); }
+.distinction {
+  display: flex;
+  align-items: center;
+  max-width: 385px;
+  gap: clamp(16px, 1.9vw, 30px);
+  padding-block: 19px;
+  margin-top: clamp(36px, 4.4vw, 74px);
+  border-block: 1px solid var(--rule);
+}
+.distinction strong { font: 400 clamp(45px, 4.4vw, 72px)/1 var(--serif-face); letter-spacing: -.065em; white-space: nowrap; }
+.distinction strong span { font-size: .55em; vertical-align: top; position: relative; top: .2em; color: var(--bronze); }
+.distinction p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--secondary); }
+.visuallyHidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.record { min-inline-size: 0; margin: 0; padding: 0; border: 0; }
+.filters { display: flex; gap: clamp(20px, 3.3vw, 52px); border-bottom: 1px solid #9e8b65; }
+.filter { position: relative; }
+.filter label { display: flex; min-height: 43px; align-items: center; padding: 0 0 11px; position: relative; color: var(--secondary); cursor: pointer; }
+.filter label::after { content: ""; position: absolute; inset: auto 0 -1px; height: 3px; background: var(--bronze); transform: scaleX(0); transform-origin: left; }
+.filter input:checked + label { color: var(--bronze); }
+.filter input:checked + label::after { transform: scaleX(1); }
+.filter input:focus-visible + label,
+.about a:focus-visible,
+.role summary:focus-visible,
+.contact a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.education, .toolkit,
+.record:has(input[value="education"]:checked) .experience,
+.record:has(input[value="toolkit"]:checked) .experience { display: none; }
+.record:has(input[value="education"]:checked) .education,
+.record:has(input[value="toolkit"]:checked) .toolkit { display: block; }
+.role,
+.educationEntry,
+.toolkitList > div { border-bottom: 1px solid var(--rule); }
+.role summary {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto 15px;
+  align-items: center; gap: clamp(10px, 1.4vw, 23px); min-height: 85px;
+  padding-block: 15px; list-style: none; cursor: pointer;
+}
+.role summary::-webkit-details-marker { display: none; }
+.roleName { display: grid; gap: 3px; }
+.roleName strong, .educationEntry h3, .toolkitList dt {
+  font: 400 clamp(23px, 1.95vw, 31px)/1.11 var(--serif-face); letter-spacing: -.045em; color: var(--text);
+}
+.roleName > span, .educationEntry > p:not(.smallLabel), .toolkitList dd {
+  font-size: 13px; line-height: 1.5; color: var(--secondary);
+}
+.roleDates, .smallLabel, .roleLocation {
+  margin: 0; font: 450 10px/1.5 var(--mono-face); letter-spacing: .01em; color: var(--secondary);
+}
+.plus { width: 13px; height: 13px; position: relative; justify-self: end; color: var(--bronze); }
+.plus::before, .plus::after { content: ""; width: 100%; height: 1px; position: absolute; left: 0; top: 50%; background: currentColor; }
+.plus::after { transform: rotate(90deg); }
+.role[open] .plus::after { transform: rotate(0); }
+.detailBody { margin: 0 0 22px; padding: 0 0 0 16px; border-left: 1px solid #a18855; }
+.roleLocation { color: var(--bronze); margin-bottom: 8px; }
+.detailBody ul { list-style: none; padding: 0; margin: 0; }
+.detailBody li { max-width: 68ch; font-size: 14px; line-height: 1.6; color: var(--text); }
+.detailBody li + li { margin-top: 6px; }
+.educationEntry, .toolkitList > div { padding-block: 22px; }
+.educationEntry h3 { margin: 6px 0; }
+.educationEntry p, .toolkitList, .toolkitList dd { margin: 0; }
+.educationEntry small { color: var(--bronze); font-size: 12px; }
+.toolkitList dd { margin-top: 7px; }
+
+.contact {
+  --starlight: #f4d594; --moon: #fff7df;
+  position: relative; isolation: isolate; overflow: hidden; background: #071542; color: var(--moon);
+}
+.nightArt { position: absolute; z-index: -1; inset: 0; overflow: hidden; container-type: size; }
+.skyPlate {
+  --art-x: 50%;
+  position: absolute;
+  top: 50%;
+  left: var(--art-x);
+  width: max(100%, 177.778cqh);
+  aspect-ratio: 16 / 9;
+  transform: translate(calc(0% - var(--art-x)), -50%);
+}
+.nightArt img { object-fit: cover; }
+.nightArt::after {
+  content: ""; position: absolute; z-index: 2; inset: 0;
+  background:
+    linear-gradient(0deg, #071333d9, transparent 26%),
+    linear-gradient(90deg, transparent 20%, #091e4d08 34%, #092454b8 65%, #0d215dbf);
+}
+.contact .inner { display: flex; flex-direction: column; min-height: clamp(620px, 52vw, 850px); }
+.contactContent {
+  position: relative; align-self: flex-end; margin-block: auto; width: 45%;
+  padding: clamp(90px, 9vw, 148px) 0 clamp(75px, 8vw, 125px);
+}
+.contact .kicker { color: var(--starlight); }
+.contact h2 { font-size: clamp(80px, 8.6vw, 140px); letter-spacing: -.072em; }
+.contact h2 em { font-weight: 400; }
+.email {
+  gap: 19px; min-height: 48px; margin-top: 28px; padding: 11px 19px;
+  border: 1px solid #fff5d2a6; border-radius: 999px; color: var(--moon);
+  background: #101f5280; font: 500 clamp(14px, 1.3vw, 19px)/1.2 var(--sans-face); letter-spacing: -.025em;
+}
+.email span { color: var(--starlight); }
+.socialLinks { display: flex; flex-wrap: wrap; gap: clamp(15px, 2vw, 33px); margin-top: 10px; }
+.socialLinks a, .footer a { min-height: 42px; gap: 6px; color: var(--moon); font-size: 13px; }
+.socialLinks span, .footer a span { font-size: .9em; color: var(--starlight); }
+.footer {
+  display: flex; gap: clamp(18px, 5vw, 90px); align-items: center; min-height: 69px;
+  border-top: 1px solid #fff4d54f; color: #e4e7ed; padding-block: 8px; font-size: 12px;
+}
+.footer a { margin-left: auto; }
+.constellation {
+  position: absolute; z-index: 1; top: 14.06%; left: 29.05%; width: 28.5%;
+  height: auto; overflow: visible; fill: #ffefc5; pointer-events: none;
+}
+.starLine { fill: none; stroke: #ffe4aa; stroke-width: .65; opacity: .6; vector-effect: non-scaling-stroke; }
+.starHalo { fill: #ffefc5; opacity: .24; }
+.spark { opacity: .88; }
+@media (hover: hover) {
+  .filter label:hover, .resumeLink:hover, .role summary:hover .roleName strong { color: var(--bronze); }
+  .email:hover { color: #102457; background: var(--moon); }
+  .email:hover span { color: inherit; }
+  .socialLinks a:hover, .footer a:hover { color: var(--starlight); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .plus::after, .filter label::after, .email, .resumeLink, .socialLinks a, .roleName strong {
+    transition: color .2s, background .2s, transform .2s;
+  }
+  .constellation .spark { animation: shimmer 5.8s ease-in-out infinite alternate; }
+  .constellation g:nth-of-type(5) .spark { animation-delay: -2.8s; }
+  .constellation g:nth-of-type(6) .spark { animation-delay: -4.3s; }
+  @keyframes shimmer { from { opacity: .35; } to { opacity: 1; } }
+  @supports (animation-timeline: view()) {
+    .starLine { stroke-dasharray: 1; animation: linkStars linear both; animation-timeline: view(); animation-range: entry 0% cover 46%; }
+    @keyframes linkStars { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  }
+}
+@media (max-width: 950px) {
+  .aboutGrid { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 35px; }
+  .role summary { grid-template-columns: minmax(0, 1fr) 14px; gap: 5px 10px; }
+  .roleName, .roleDates { grid-column: 1; }
+  .plus { grid-column: 2; grid-row: 1 / 3; }
+  .contactContent { width: 47%; }
+}
+@media (max-width: 700px) {
+  .aboutGrid { grid-template-columns: 1fr; gap: 38px; }
+  .bioCopy { max-width: 54ch; margin-top: 20px; }
+  .distinction { margin-top: 23px; padding-block: 12px; max-width: 380px; }
+  .bio h2 { font-size: clamp(56px, 9vw, 70px); }
+  .filters { gap: 32px; }
+  .contact .inner { min-height: clamp(680px, 110vw, 790px); }
+  .nightArt { top: 30%; }
+  .skyPlate { --art-x: 8%; }
+  .nightArt::after { background: linear-gradient(0deg, #081532e6, transparent 28%, transparent 75%, #071542); }
+  .contactContent { align-self: stretch; width: 100%; margin: 0; padding: 59px 0 0; }
+  .contact h2 { font-size: clamp(80px, 15vw, 105px); }
+  .contact .kicker { margin-bottom: 12px; }
+  .email { margin-top: 18px; }
+  .footer { margin-top: auto; }
+}
+@media (max-width: 420px) {
+  .footer { flex-wrap: wrap; gap: 8px 15px; }
+  .based { display: none; }
+}
